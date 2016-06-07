@@ -1,0 +1,2134 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language ngerman
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language german
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Komplexe Leistung zum Thema: Bau und Erprobung eines 2D-Plotters
+\end_layout
+
+\begin_layout Author
+Mattis M
+\end_layout
+
+\begin_layout Standard
+Fach: Informatik
+\end_layout
+
+\begin_layout Date
+Eingereicht am: 4.
+ April 2016
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Einleitung
+\end_layout
+
+\begin_layout Standard
+Seit dem in den 1990er-Jahren Drucker und Großformatdrucker die Zeichenplotter
+ ersetzt haben, sind diese heute kaum noch in aktiver Verwendung (mehr dazu
+ in Abschnitt 4).
+ Trotzdem sind Plotter nach wie vor bedeutend, da sie die Grundlage für
+ viele Maschinen bilden und außerdem die Bedeutung und den Unterschied zwischen
+ Vektor- und Pixelgrafiken sehr gut veranschaulichen können.
+ Im Gegensatz zu Laser- oder Tintenstahldruckern können sie Vektorgrafiken
+ darstellen, ohne diese vorher in eine Rastergrafik umgewandelt haben zu
+ müssen.
+ [1] 
+\begin_inset Newline newline
+\end_inset
+
+Die Idee zum Bau eines Plotters kam mir, als ich einen alten defekten Scanner
+ zerlegte.
+ Ich überlegte, was ich mit dem noch funktionsfähigen Antrieb, der wie für
+ Scanner üblich aus einem Schrittmotor mit einem Getriebe und einem Zahnriemen
+ bestand machen könnte.
+\begin_inset Newline newline
+\end_inset
+
+Im Internet findet man zahlreiche Projekte und Projektideen, die erklären,
+ wie man einen Plotter selbst bauen kann, allerdings basiert mein Plotter
+ im wesentlichen auf meinen eigenen Ideen und Überlegungen.
+\end_layout
+
+\begin_layout Subsection
+Begriffsdefinitionen
+\end_layout
+
+\begin_layout Description
+
+\series bold
+Plotter
+\series default
+: 
+\begin_inset Quotes gld
+\end_inset
+
+Ein Plotter (auch Kurvenschreiber) ist ein Ausgabegerät, das Vektorgrafiken
+ darstellt [...], ohne sie vorher in eine Rastergrafik umzurechnen.
+\begin_inset Quotes grd
+\end_inset
+
+ [1]
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series bold
+Vektorgrafik: 
+\series default
+
+\begin_inset Quotes gld
+\end_inset
+
+Eine Vektorgrafik ist eine Computergrafik, die aus grafischen Primitiven
+ wie Linien, Kreisen, Polygonen oder allgemeinen Kurven (Splines) zusammengesetz
+t ist.
+\begin_inset Quotes grd
+\end_inset
+
+ [2]
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series bold
+Raster-/Pixelgrafik:
+\series default
+ Eine Raster- bzw.
+ Pixelgrafik ist eine Computergrafik, 
+\begin_inset Quotes gld
+\end_inset
+
+die aus einer rasterförmigen Anordnung von Pixeln (Bildpunkten besteht)
+\begin_inset Quotes grd
+\end_inset
+
+.
+ Das Skalieren einer Rastergrafik führt (im Gegensatz zum skalieren einer
+ Vektorgrafik) zu einem Qualitätsverlust.
+ [3]
+\end_layout
+
+\begin_layout Description
+
+\series bold
+Schrittmotor:
+\series default
+ 
+\begin_inset Quotes gld
+\end_inset
+
+Ein Schrittmotor ist ein Synchronmotor, bei dem der Rotor (drehbares Motorteil
+ mit Welle) durch ein gesteuertes, schrittweise rotierendes, elektromagnetisches
+ Feld der Statorspulen (Stator = nicht drehbarer Motorteil) um einen minimalen
+ Winkel (Schritt) oder sein Vielfaches gedreht werden kann.
+\begin_inset Quotes gld
+\end_inset
+
+ [4]
+\end_layout
+
+\begin_layout Description
+
+\series bold
+H-Brücke:
+\series default
+ 
+\begin_inset Quotes gld
+\end_inset
+
+Ein Vierquadrantensteller besteht aus einer elektronischen H-Brückenstellung
+ aus vier Halbleiterschaltern, meist aus Transistoren, welche eine Gleichspannun
+g in eine Wechselspannung variabler Frequenz und variabler Pulsbreite umwandeln
+ kann.
+\begin_inset Quotes grd
+\end_inset
+
+ [5]
+\end_layout
+
+\begin_layout Description
+RepRap: 
+\begin_inset Quotes gld
+\end_inset
+
+Der RepRap ist ein 3D-Drucker, der für das Rapid Prototyping und Rapid Manufactu
+ring verwendet werden kann und alle Kunststoffteile seiner Bauteile auch
+ selbst herstellen kann (Autoreplikation).
+\begin_inset Quotes grd
+\end_inset
+
+ [9]
+\end_layout
+
+\begin_layout Description
+StepStick: Ein StepStick ist ein Schrittmotortreiber (Allegro A4983/A4988)
+ auf einer Platine, welche zur einfachen Verwendung in beispielsweise Plottern,
+ 3D-Druckern (meist) mit Steckkontakten im Standart-Rastermaß () versehen
+ ist.
+ Außerdem sind die Konstruktionsdetails (Platinendaten, Einzelteillisten,
+ ...) unter GPL-Lizenz veröffentlicht und somit frei nutzbar.
+ [vgl.
+ 8]
+\end_layout
+
+\begin_layout Description
+Arduino
+\begin_inset space ~
+\end_inset
+
+(Plattform): 
+\begin_inset Quotes gld
+\end_inset
+
+Arduino (seit März 2015 auch Genuino) ist eine aus Soft- und Hardware bestehende
+ Physical-Computing-Plattform.
+ Beide Komponenten sind im Sinne von Open Source quelloffen.
+ Die Hardware besteht aus einem einfachen E/A-Board mit einem Mikrocontroller
+ und analogen und digitalen Ein- und Ausgängen.
+\begin_inset Quotes grd
+\end_inset
+
+ [10]
+\end_layout
+
+\begin_layout Description
+Mikrocontroller: 
+\begin_inset Quotes gld
+\end_inset
+
+Als Mikrocontroller (auch µController, µC, MCU) werden Halbleiterchips bezeichne
+t, die einen Prozessor und zugleich auch Peripheriefunktionen enthalten.
+\begin_inset Quotes grd
+\end_inset
+
+ [11] Ein Mikrocontroller kann also sowohl Daten verarbeiten als auch mit
+ Elektronik interagieren.
+\end_layout
+
+\begin_layout Description
+G-CODE: Steuerungssatz für (computergesteuerte) CNC-Maschinen [vgl.
+ 19] 
+\end_layout
+
+\begin_layout Subsection
+Zielstellung
+\end_layout
+
+\begin_layout Standard
+Zielstellung dieser komplexen Leistung war es einen zuverlässigen und optisch
+ ansprechenden 2D- Plotter zu bauen, der sowohl einfache geometrische Formen
+ wie Dreiecke, Rechtecke und Kreise als auch gängige mathematische Funktionen
+ in Koordinatensystem darstellen kann.
+ 
+\end_layout
+
+\begin_layout Subsection
+Hinweise
+\end_layout
+
+\begin_layout Standard
+Der Quellcode dieses Projekts sowie dieses Dokument befinden sich außerdem
+ in meinem 
+\begin_inset CommandInset href
+LatexCommand href
+name "Github-Repository"
+target "https://www.github.com/FlyingNautilus/Komplexe-Leistung"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Aufbau des Plotters
+\end_layout
+
+\begin_layout Standard
+Da ich beim Darstellen von Kreisen und Ellipsen auf komplexe Probleme stieß,
+ die ich nicht lösen konnte, habe ich mich nach Absprache mit meinem Betreuer
+ dazu entschlossen, diese Darstellungen mit meinem 3D-Drucker zu realisieren.
+ Dazu habe ich an der X-Achse den Extruder (Der Teil des 3D-Druckers der
+ den flüssigen Kunststoff extrudiert) durch eine Halterung für einen Stift
+ ersetzt habe.
+ Trotzdem möchte ich auf den mechanischen und elektronischen Aufbau meines
+ ersten Plotters eingehen, um dabei auch die Probleme des mechanisches Aufbaus
+ die letztendlich zu dem Versagen dieses Geräts führten, zu erläutern.
+\end_layout
+
+\begin_layout Subsection
+Aufbau des ersten Plotters
+\end_layout
+
+\begin_layout Subsubsection
+Aufbau des Antriebs und des Rahmens
+\end_layout
+
+\begin_layout Standard
+Um einen ersten Funktionstest durchzuführen, habe ich den Schrittmotor mithilfe
+ eines Mikrocontrollers und einer H-Brücke (Abb.
+ 5.1) angesteuert, um so einen Stift der an dem Schlitten befestigt ist,
+ linear zu bewegen.
+\begin_inset Newline newline
+\end_inset
+
+Da dieser erste Test erfolgreich war, habe ich dann beschlossen einen Plotter
+ zu bauen.
+ Dafür habe ich zuerst einen 2.
+ teilweise defekten Scanner, der in meiner Schule wegen dieser Defekte aussortie
+rt wurde, zerlegt, um so den Antrieb für die (Y-Achse) zu bekommen.
+ Weil der erste Funktionstest der Schrittmotorsteuerung mit einer H-Brücke
+ erfolgreich war und ich zu diesem Zeitpunkt keinen Grund zur Annahme hatte,
+ dass dies nicht funktionieren würde oder zu Problemen führen könnte, habe
+ ich zwei neue, leistungsfähigere H-Brücken (siehe H-Brücke.jpg) gekauft.
+ Mit diesen habe ich die erste funktionierende Version des Plotters gebaut
+ (wie 5.8, ledeglich andere Elektronik).
+\begin_inset Newline newline
+\end_inset
+
+Zu diesem Zeitpunkt konnte der Plotter bereits problemlos Geraden und Diagonalen
+ zeichnen.
+ Allerdings traten auch die ersten größeren Probleme auf, die ich vorher
+ nicht genau durchdacht hatte: zum einen benötigten die Schrittmotoren mit
+ ihren Getrieben unterschiedlich viele Schritte um die selbe Strecke zurückzuleg
+en, zum anderen wurden sie bei längerem Betrieb so heiß, dass ich Bedenken
+ bekam, ob die Steuerung so günstig konstruiert war.
+\begin_inset Newline newline
+\end_inset
+
+Die hohen Temperaturen der H-Brücken stellten sich nach lesen des Datenblatts
+ eine 
+\begin_inset Quotes gld
+\end_inset
+
+OVERTEMPERATURE PROTECTION
+\begin_inset Quotes grd
+\end_inset
+
+[6, S.1], also einen Überhitzungsschutz besitzen und wie in Abbildung 5.1
+ ersichtlich einen recht großen Kühlkörper besitzen als unproblematisch
+ dar.
+ Die hohe Temperatur der Motoren, war allerdings doch recht ungünstig, denn
+ die Datenblätter vergleichbarer Schrittmotoren beschreiben 
+\begin_inset Quotes gld
+\end_inset
+
+Operating Temp -20°C to +40°C
+\begin_inset Quotes grd
+\end_inset
+
+[6, S.1] , also eine Betriebstemperatur von maximal 40°C.
+ Nach kurzer Internetrecherche wurde mir klar, dass die hohen Temperaturen
+ mit nicht geregelten also zu hohen Strömen zusammenhängen.
+\begin_inset Newline newline
+\end_inset
+
+Wegen dieser zu hohen, ungeregelten Ströme entschloss ich mich, die bei
+ reprap-3D-Druckern üblichen StepSticks (vgl.
+ Abb.
+ 5.7) [http://reprap.org/wiki/StepStick] als Schrittmotortreiber zu verwenden,
+ welche dieses Problem lösten.
+ Außerdem ermöglichen diese eine einfachere und zuverlässigere Ansteuerung
+ sowie weitere Funktionen wie einen 
+\begin_inset Quotes gld
+\end_inset
+
+Schlafmodus
+\begin_inset Quotes grd
+\end_inset
+
+ (mehr dazu in 3.1).
+ 
+\begin_inset Newline newline
+\end_inset
+
+Nachdem ich diese neuen StepSticks erfolgreich eingesetzt hatte konnte ich
+ die Motoren zwar zuverlässig ansteuern, bekam aber für mich unerklärbare
+ Fehler beim Zeichnen von Kreisen bzw.
+ Ellipsen, trotzdem baute ich einen neuen Rahmen der der Anforderung 
+\begin_inset Quotes gld
+\end_inset
+
+optisch ansprechend
+\begin_inset Quotes grd
+\end_inset
+
+ genügen sollte und außerdem eventuelle Fehler, die aus einer Instabilität
+ des Rahmens hervorgehen, beheben zu können.
+\begin_inset Newline newline
+\end_inset
+
+Der Rahmen besteht aus einer hölzernen Grundplatte (L:500mm, B:400mm, H:10mm),
+ um eine möglichst große Stabilität zu erzeugen.
+ Auf dieser sind zwei parallele, glatte, geschmierte Metallachsen (Ø8mm)
+ angebracht, die eine möglichst zuverlässig lineare Bewegung der Y-Achse
+ ohne zu große Ausreißer ermöglichen.
+ Des weiteren befinden sich auf der Grundplatte eine Gabellichtschranke
+ (vgl.
+ Abb.
+ 5.4) und der Schrittmotor (Abb.
+ 5.2) mit Getriebe und Zahnriemen die zur Kalibrierung bzw.
+ Bewegung des Y-Schlittens an welchem die X-Achse befestigt ist, dienen.
+ Außerdem befindet sich auf der Grundplatte der Mikrocontroller mit Schrittmotor
+treibern (siehe 5.7) sowie die Anschlüsse für die Stromversorgung.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Auf dem X-Schlitten der von den beiden Y-Achsen und dem Y-Zahnriemen in
+ der gewünschten Position gehalten wird, befindet sich der Antrieb der X-Achse
+ (ein Schrittmotor mit Getriebe und Zahnriemen; vgl.
+ Bild 5.3), eine Gabellichtschranke zur Kalibrierung und ein Schlitten, der
+ von einem Servomotor angehoben werden kann und einer unbeschalteten Spule,
+ die als Gewicht zum Anpressen des Stiftes auf das Blatt dient (vgl.
+ 5.11).
+ Am Arm der Spule befindet sich eine Klemme, in der verschiedene gängige
+ Blei- und Filzstifte sowie Kugelschreiber(-minen) und andere Werkzeuge
+ mit zylindrischem oder prismatischem Griff mit einem Durchmesser von maximal
+ 7,5mm innerhalb kürzester Zeit und mit einem Handgriff befestigt werden
+ können (siehe 5.11 rechts).
+\begin_inset Newline newline
+\end_inset
+
+Auch diese fast finale Konstruktion hatte immer noch einige Probleme.
+ So führte zum Beispiel eine nicht ausreichend exakte Parallelität der Achsen
+ und Achshalterungen zu einem Verkanten des Y-Schlittens, was darin resultierte,
+ dass der Stift nicht in Y-Richtung bewegt werden konnte und manuell in
+ die richtige (nicht verkantete) Position bewegt werden musste.
+ Deswegen musste ich die linke Y-Achse durch eine dünnere Achse (Ø5mm) ersetzen.
+ Außerdem lagen die Kabel, die zum Y-Schlitten führen und den Servomotor,
+ den X-Schrittmotor sowie die X-Gabellichtschranke steuern und mit Strom
+ versorgen noch lose neben dem Plotter (siehe 5.9).
+ Da ich mittlerweile Besitzer eines 3D-Druckers war, druckte ich eine Kabelkette
+, um so die Kabel geordnet und wie gefordert 
+\begin_inset Quotes gld
+\end_inset
+
+optisch ansprechend
+\begin_inset Quotes grd
+\end_inset
+
+ zu befestigen.
+ Da ich im Internet zwar gute 3D-Modelle von 3d-druckbaren Kabelketten fand,
+ diese allerdings zu große Reibung aufwiesen, als dass sie von den schon
+ ohnehin stark belastetem Y-Schrittmotor bewegt werden konnten, musste ich
+ diese leicht modifizieren.
+\begin_inset Newline newline
+\end_inset
+
+Trotz all dieser Verbesserungen und ergebnisloser stundenlanger Fehlersuche
+ und Überlegungen nach möglichen Quellen für die unerklärlichen Fehler beim
+ Zeichnen von Kreisen bzw.
+ Ellipsen konnten diese nicht behoben werden.
+ So entschloss ich mich, jetzt wie bereits in der Einführung erwähnt, dazu
+ meinen 3D-Drucker umzubauen um so einen zuverlässig funktionierenden Plotter
+ zu haben.
+ (mehr dazu in 2.2)
+\end_layout
+
+\begin_layout Subsubsection
+Aufbau der Elektronik
+\end_layout
+
+\begin_layout Standard
+Ich habe mich bei der Elektronik für eine Arduino bzw.
+ Genduino UNO R3 Mikrocontroller-Board (vgl.
+ 5.6) entschieden, weil es im Internet zahlreiche Anleitungen und Referenzen
+ gibt, die erklären, wie man einen derartigen Mikrocontroller programmiert
+ und wie dieser mit diverser Elektronik (in meinem Fall Schrittmotortreiber
+ und Gabellichtschranken) interagiert.
+ Außerdem war ich bereits im Besitz eines solchen Mikrocontroller und hatte
+ mit diesem auch schon einige einfachere Projekte realisiert, weswegen ich
+ bereits grundlegende Erfahrungen mit dem Mikrocontroller und dessen Programmier
+ung hatte.
+\begin_inset Newline newline
+\end_inset
+
+Der Arduino UNO bildet also die Steuer- und Computerinteraktionszentrale
+ der Elektronik, da er sowohl die Schrittmotoren steuert, als auch auch
+ mit dem Computer (bzw.
+ meiner Steuerungssoftware) über USB.
+ Die verwendete Logikspannung beträgt 5V, der Arduino UNO basiert auf einem
+ ATMEL ATmega328-Mikrocontroller und operiert mit einer Taktfrequenz von
+ 16MHz, hat einen Flash-Speicher (für Programme) der 32 KB groß ist und
+ einen 2KB großen SRAM (Arbeitsspeicher) .
+\begin_inset Newline newline
+\end_inset
+
+Die Schaltung ist recht einfach und besteht im wesentlichen aus dem Mikrocontrol
+ler, den Schrittmotortreibern (StepSticks basierend auf dem Allegro A4998-Chip),
+ welche wiederum mit den Schrittmotoren und den 12V-Steckernetzteilen verbunden
+ sind.
+ Außerdem wird Stromversorgung der Schrittmotortreiber durch 2 Kondensatoren
+ (2200µF und 3300µF) stabilisiert.
+ Die Schrittmotortreiber, Kondensatoren sowie Anschlüsse für die Schrittmotoren
+ und Gabellichtschranken und den Servo befinden sich auf einer Erweiterungsplati
+ne mit Lochraster (siehe 5.7), welche auf dem Mikrocontroller-Board steckt.
+ Im Anhang befinden sich auch der Schaltplan (Abb.
+ 5.5) und eine schematische Darstellung der Schaltung (Abb.
+ 5.6).
+ 
+\begin_inset Newline newline
+\end_inset
+
+Liste aller verwendeten Bauteile (der letzten Version) und deren Bedeutung:
+\end_layout
+
+\begin_layout Itemize
+1 Arduino bzw.
+ Genduino UNO - Mikrocontroller-Board
+\end_layout
+
+\begin_layout Itemize
+2 StepSticks (basierend auf Allegro A4998 Chip) - Schrittmotortreiber zur
+ Ansteuerung der Schrittmotoren
+\end_layout
+
+\begin_layout Itemize
+2 Infrarot - Gabellichtschranken mit Vorwiderständen - Enstoperkennung der
+ X- und Y-Achse
+\end_layout
+
+\begin_layout Itemize
+2 Kondensatoren - Stabilisierung der Versorgungsspannung bei Spitzenlasten
+\end_layout
+
+\begin_layout Itemize
+2 Schrittmotoren und 1 Servomotor - Bewegung der X-, Y-, und Z-Achse 
+\end_layout
+
+\begin_layout Subsection
+Aufbau des zweiten Plotters (der auf einem 3D-Drucker basiert)
+\end_layout
+
+\begin_layout Standard
+Da wie bereits im letzten Abschnitt erwähnt, der Plotter nicht so funktioniert,
+ wie ich es mir vorgestellt hatte bzw.
+ wie es gefordert war, entschloss ich mich, meinen 3D-Drucker (Prusa i3
+ Original) so zu modifizieren, dass man ihn als Plotter verwenden kann.
+ Dafür habe ich den Extruder (siehe 5.13) durch eine Halterung für den Stift
+ ersetzt (siehe 5.10).
+ Dadurch ist es mir möglich, die bereits vorhandenen X-, Y- und Z-Achsen-Antrieb
+e sowie deren Steuerungselektronik (RamboMini motherboard) zu nutzen.
+\end_layout
+
+\begin_layout Subsubsection
+Mechanischer Aufbau
+\end_layout
+
+\begin_layout Standard
+Wie in Abbildung 5.13 bereits zu erkennen ist, besteht der 3D-Drucker aus
+ einem sehr stabilen Metallrahmen, außerdem sind die Schrittmotoren (in
+ 5.13 als 
+\begin_inset Quotes gld
+\end_inset
+
+stepper
+\begin_inset Quotes grd
+\end_inset
+
+ bezeichnet) wesentlich größer und auch dementsprechend leistungsfähiger.
+ Außerdem ermöglichen die Motoren Geschwindigkeiten von bis zu 200
+\begin_inset Formula $\frac{mm}{s}$
+\end_inset
+
+ (0,2 
+\begin_inset Formula $\frac{m}{s}$
+\end_inset
+
+), was nicht nur eine einfachere und schnellere Entwicklung der Steuerungssoftwa
+re sondern auch wesentlich schnellere Zeichnungen ermöglicht.
+\begin_inset Newline newline
+\end_inset
+
+Die wesentlichen relevanten Unterschiede im mechanischen Aufbau zu meinem
+ ersten Plotter sind schnellere und leistungsfähigere Motoren, sowie eine
+ stabilere und damit zuverlässigere mechanische Konstruktion.
+ Zudem kann es durch die Verwendung von Linearkugellagern (statt der ungelagerte
+n Metallhülsen beim ersten Plotter) nicht zu einem Verkanten des Y-Schlittens
+ kommen.
+ Außerdem wird bei dem zweiten Plotter (im Gegensatz zum ersten) Einer der
+ wenigen Nachteile ist allerdings die geringere Druckgröße von maximal 20
+ 
+\begin_inset Formula $\times$
+\end_inset
+
+ 20 cm (statt 30 
+\begin_inset Formula $\times$
+\end_inset
+
+ 30 cm), dadurch können keine A4-Blätter genutzt werden.
+\end_layout
+
+\begin_layout Section
+Erläuterungen zur Software
+\end_layout
+
+\begin_layout Subsection
+Software des Mikrocontrollers
+\end_layout
+
+\begin_layout Subsubsection
+Software des ersten Plotters
+\end_layout
+
+\begin_layout Standard
+Die Software für den Mikrocontroller wurde in C++ geschrieben.
+ Das bringt mehrere Vorteile mit sich: Zum einen kann der Code schnell und
+ effizient ausgeführt werden, was besonders bei Mikrocontrollern wegen ihrer
+ begrenzten Rechenleistung und relativ geringen Taktrate vorteilhaft ist,
+ um eine schnelle Ausführung zu ermöglichen.
+ Zum zweiten ist C++ objektorientiert und kann deswegen sehr flexibel und
+ effizient programmiert werden.
+ Zum dritten gibt es bereits sehr viele Bibliotheken, da C++ die vom Arduino-Pro
+jekt verwendete Programmiersprache ist, welche auch die einzige mit der
+ offiziellen Arduino-IDE programmierbare Sprache ist.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Zum Entwickeln habe ich anfangs die Arduino-IDE, später QtCreator genutzt,
+ da dieser durch Features wie dynamischer Vorschläge während des Eingebens
+ und teilweise automatischer Vervollständigung eine wesentlich schnellere
+ und bequemere Entwicklung ermöglicht.
+ Die Fehlersuche ist durch bessere und detailliertere Fehlermeldungen sowie
+ übersichtliche Syntax-Hervorhebung einfacher und schneller möglich.
+\begin_inset Newline newline
+\end_inset
+
+Da mir leider zum Zeitpunkt des Programmierens die Vorteile des für CNC-Maschine
+n üblichen und standardisierten G-CODES nicht bekannt waren, habe ich ein
+ eigenes Protokoll für die Kommunikation zwischen Zeichensoftware bzw.
+ Computer und Plotter entwickelt, welches schlussendlich zwar hervorragend
+ funktioniert, aber den Plotter nur exklusiv mit meinem Programm steuerbar
+ macht.
+ Daraus ergeben sich entscheidende Nachteile für z.B.
+ das Zeichnen von Objekten, die von meinem Zeichenprogramm nicht unterstützt
+ werden.
+ Deswegen ist es nicht möglich, diese zu zeichnen, was die Einsatzmöglichkeiten
+ ohne Veränderung der Software stark einschränkt.
+ Trotzdem ist mein Protokoll effizient und ermöglicht eine zuverlässige
+ Ansteuerung des Plotters, wobei dieser auch die meisten Rechenaufgaben
+ übernimmt und so auch eine computerlose also selbstständige Steuerung oder
+ zumindest eine Ansteuerung durch beispielsweise einen zweiten Mikrocontroller
+ möglich wäre.
+ Außerdem ist es auch für Menschen leicht lesbar, da die Befehle nach der
+ üblichen C-Funktionssyntax aufgebaut sind ( Befehl(Parameter1, Parameter2,
+ ...) ).
+ Auch Fehlerausgaben wie z.B.
+ 
+\begin_inset Quotes gld
+\end_inset
+
+ungültiger Befehl
+\begin_inset Quotes grd
+\end_inset
+
+ sind so gestaltet, dass sie für Menschen leicht lesbar sind.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Der Algorithmus für die Interpretation der Befehle sucht zuerst nach Zeichen,
+ die eine Trennung des Befehls in Befehlsname und Parameter ermöglichen
+ ( 
+\begin_inset Quotes gld
+\end_inset
+
+(
+\begin_inset Quotes grd
+\end_inset
+
+, 
+\begin_inset Quotes gld
+\end_inset
+
+)
+\begin_inset Quotes grd
+\end_inset
+
+, 
+\begin_inset Quotes gld
+\end_inset
+
+,
+\begin_inset Quotes grd
+\end_inset
+
+).
+ Deren Positionen werden gespeichert und anschließend genutzt um mithilfe
+ der substring-Funktion der String-Klasse eine Zwischenspeicherung des Befehlsna
+mens (als Zeichenkette) und der Parameter (als Zahl) zu ermöglichen.
+ So können diese im letzten Schritt genutzt werden, um die richtige Funktion
+ des Programms mit den notwendigen Argumenten aufzurufen.
+ Dieser Algorithmus ist in der Funktion 
+\begin_inset Quotes gld
+\end_inset
+
+processInputCommand
+\begin_inset Quotes grd
+\end_inset
+
+ in der Datei 
+\begin_inset Quotes gld
+\end_inset
+
+app.cpp
+\begin_inset Quotes grd
+\end_inset
+
+ im Ordner 
+\begin_inset Quotes gld
+\end_inset
+
+PlotR
+\begin_inset Quotes grd
+\end_inset
+
+ implementiert.
+\begin_inset Newline newline
+\end_inset
+
+Zum zeichnen von Linien in X- und Y-Richtung wird ein einfacher Algorithmus
+ verwendet, der die notwendige Anzahl von Schritten, die der jeweilige Schrittmo
+tor durchführen muss, berechnet und diese mithilfe der 
+\begin_inset Quotes gld
+\end_inset
+
+PlotRAxis
+\begin_inset Quotes grd
+\end_inset
+
+-Klasse durchführt.
+\begin_inset Newline newline
+\end_inset
+
+Nach jeder durchgeführten Bewegung müssen die Motoren in den 
+\begin_inset Quotes gld
+\end_inset
+
+Schlafmodus
+\begin_inset Quotes grd
+\end_inset
+
+ geschaltet werden, um nicht zu überhitzten und trotzdem ihre Position beizubeha
+lten.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Anfangs hatte der Plotter auch eine Funktion zum Zeichnen von Diagonalen,
+ welche die beiden Schrittmotoren abwechselnd angesteuert hat und den Motor
+ mit der höheren Auflösung bestimmte Schritte überspringen lassen hat, um
+ die unterschiedlichen Auflösungen zu kompensieren.
+ Jedoch wurde diese entfernt, da sie durch den Algorithmus zum Zeichnen
+ beliebiger Geraden unnötig wurde und der Programmspeicher des Mikrocontroller
+ relativ klein ist.
+\begin_inset Newline newline
+\end_inset
+
+Der Algorithmus zum Zeichnen dieser beliebigen Geraden basiert auf dem Bresenham
+-Algorithmus, da dieser eine sehr schnelle Berechnung ermöglicht, auch wenn
+ diese durch die relativ geringe Zeichengeschwindigkeit nicht unbedingt
+ notwendig ist.
+ Zur einfacheren Erklärung nehmen wie an, die zu zeichnende Gerade hat einen
+ Anstieg 
+\begin_inset Formula $0<m<1$
+\end_inset
+
+ und führt von 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang english
+
+\begin_inset Formula $\left(x_{1}|y_{1}\right)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang ngerman
+ nach 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\lang english
+
+\begin_inset Formula $\left(x_{2}|y_{2}\right)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+\lang ngerman
+.
+ Nehmen wir weiterhin an, 
+\begin_inset Formula $dx=x_{2}-x_{1}$
+\end_inset
+
+ und 
+\begin_inset Formula $dy=y_{2}-y_{1}$
+\end_inset
+
+.
+ Bei der Annahme von 
+\begin_inset Formula $0<m<1$
+\end_inset
+
+ gilt dann 
+\begin_inset Formula $0<dy<dx$
+\end_inset
+
+, für andere Anstiege muss dann nur eine Fallunterscheidung auf Basis der
+ Vorzeichen von 
+\begin_inset Formula $dy$
+\end_inset
+
+ und 
+\begin_inset Formula $dx$
+\end_inset
+
+ getroffen werden.
+ Ähnlich wie bei dem Rastern einer mathematischen Funktion (siehe Ellipsenfunkti
+on) gehen wir von einer schrittweisen Rasterung der x-Werte aus.
+ Dabei wird nach jedem Schritt in X-Richtung ein Schritt in Y-Richtung durchgefü
+hrt falls dieser notwendig ist.
+ Diese Notwendigkeit wird mithilfe des Fehlerglieds ermittelt.
+ Das Fehlerglied ergibt sich aus dem Auflösen der Geradengleichung in der
+ Zweipunkteform 
+\begin_inset Formula $y=\frac{dx}{dy}\cdot(x-x_{1})+y_{1}$
+\end_inset
+
+ in 
+\begin_inset Formula $0=dx\cdot(y-y_{1})-dy\cdot(x-x_{1})$
+\end_inset
+
+, wobei dann die 
+\begin_inset Formula $0$
+\end_inset
+
+ das Fehlerglied 
+\begin_inset Formula $e$
+\end_inset
+
+ ergibt.
+ Bei einem X-Schritt (von 1) gilt dann 
+\begin_inset Formula $e_{neu}=e_{alt}-dx$
+\end_inset
+
+.
+ Wenn das neue Fehlerglied 
+\begin_inset Formula $e_{neu}$
+\end_inset
+
+ jetzt kleiner als 0 ist muss ein Y-Schritt gemacht werden.
+ Nach diesem Schritt ergibt sich das neue Fehlerglied aus 
+\begin_inset Formula $e_{neu}=e_{alt}+dx$
+\end_inset
+
+, denn 
+\begin_inset Formula $e_{alt}=dx(y-y_{1})-dy\cdot(x-x_{1})$
+\end_inset
+
+ und 
+\begin_inset Formula $e_{neu}=dx(y-y_{1}+1)-dy\cdot(x-x_{1})$
+\end_inset
+
+, da ein y-Schritt zurückgelegt wurde.
+ Durch diese starke Vereinfachung ist es mit wenigen Rechenoperationen,
+ von denen nur eine eine Division ist, während alle anderen Additionen und
+ Subtraktionen sind, die von Computern sehr schnell berechnet werden können
+ (je 1 bitweise Operation).
+ Dieser Algorithmus ist so einfach und gleichzeitig Effizient, dass er teilweise
+ auf Hardwareebene in Grafikchips implementiert wird.[] 
+\begin_inset Newline newline
+\end_inset
+
+Um auch Kreise darzustellen, muss der Plotter wegen der unterschiedlichen
+ Auflösungen der Schrittmotoren Ellipsen zeichnen.
+ Anfangs habe ich für diese den Midpoint-Algorithmus verwendet, allerdings
+ hatte ich Probleme mit den Fehler-Variablen, da diese zu Problemen geführt
+ haben, weil sie das Maximum der Variable überschritten (Stackoverflow).
+ Deswegen habe ich schlussendlich einen Algorithmus entwickelt, der die
+ Ellipsenfunktion 
+\begin_inset Formula $y\text{²}=b\text{²}(1-(x\text{²}/a\text{²}))$
+\end_inset
+
+ wobei 
+\begin_inset Formula $a$
+\end_inset
+
+ der Breite und 
+\begin_inset Formula $b$
+\end_inset
+
+ der Höhe der Ellipse entspricht, in jedem Quadranten zeichnet.
+ Dabei berechnet der Mikrocontroller jeden y-Wert für jeden x-Schritt mit
+ 
+\begin_inset Formula $y=\sqrt{b^{2}(1-(x^{2}/a^{2}))}$
+\end_inset
+
+.
+ Die Implementation dieses Algorithmus befindet sich in der Ellipse-Funktion
+ in der Datei 
+\begin_inset Quotes gld
+\end_inset
+
+app.cpp
+\begin_inset Quotes grd
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+Zur Interaktion mit den Schrittmotortreibern habe ich die PlotRAxis3-Klasse
+ implementiert, welche neben der schrittweisen und Positions- Steuerung
+ eines Schrittmotors mit einem StepStick auch weitere Funktionen wie die
+ Regelung dessen Geschwindigkeit, dem Zurücksetzten der Achse zu seiner
+ Ursprungsposition auch das an- und abschalten den Schlafmoduses des StepSticks
+ ermöglicht.
+\end_layout
+
+\begin_layout Subsubsection
+Software des zweiten Plotters
+\end_layout
+
+\begin_layout Standard
+Die Steuerungselektronik des 3D-Druckers wurde beim Umbau zum Plotter nicht
+ verändert.
+ Trotzdem möchte ich kurz erläutern welche Algorithmen der 3D-Drucker/Plotter
+ für Linien und Kreise bzw.
+ Ellipsenbögen verwendet.
+ Dies ist möglich, weil die Firmware des 3D-Druckers (Marlin V2.2.1) quelloffen
+ ist.
+\begin_inset Newline newline
+\end_inset
+
+Der Algorithmus für das Zeichnen von Ellipsenbögen bzw.
+ Ellipsen (vollständiger Bogen), die bei gleicher Höhe und Breite Kreise
+ sind befindet sich in [19; Z.
+ 7058-7192].
+ Die Berechnung der Koordinaten erfolgt dabei mithilfe einer 
+\begin_inset Quotes gld
+\end_inset
+
+Vector rotation by transformation matrix
+\begin_inset Quotes grd
+\end_inset
+
+ also einer Vektorrotation mit einer Drehmatrix.
+ Dieser Algorithmus basiert auf einem Lösungsvorschlag von Jens Geisler
+ [vgl.
+ 19; Z.
+ 7094].
+ Der Ansatz dieses Algorithmuses ist die Drehmatrix für die Drehung um 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ (mathematisch positiv) der euklidischen Ebene 
+\begin_inset Formula $R{}^{2}$
+\end_inset
+
+ die mit 
+\begin_inset Formula $R_{\alpha}=\left(\begin{array}{cc}
+\cos\alpha & -\sin\alpha\\
+\sin\alpha & \cos\alpha
+\end{array}\right)$
+\end_inset
+
+ bzw.
+ um 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ (mathematisch negativ) 
+\begin_inset Formula $R_{-\alpha}=\left(\begin{array}{cc}
+\cos\alpha & \sin\alpha\\
+-\sin\alpha & \cos\alpha
+\end{array}\right)$
+\end_inset
+
+ definiert ist.
+ Wobei 
+\begin_inset Formula $R_{\alpha}$
+\end_inset
+
+bzw.
+ 
+\begin_inset Formula $R_{-\alpha}$
+\end_inset
+
+ jeweils den gedrehten Vektor beschreiben.
+ Der zu zeichnende Bogen wird aus sehr kleinen Linien (Segmenten) berechnet,
+ die dann näherungsweise eine/n Ellipsen- bzw.
+ Kreis(-bogen) ergeben bei denen jeweils gilt: 
+\begin_inset Formula $\alpha=\frac{Gesamtwinkel}{Segmentanzahl}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Steuersoftware des zur Steuerung verwendeten Computers
+\end_layout
+
+\begin_layout Standard
+Die Steuersoftware ist in C++ geschrieben, außerdem wird für die grafische
+ Benutzeroberfläche (GUI) und die Serielle Schnittstelle die Qt-Bibliothek
+ genutzt.
+ Der Hauptvorteil der Qt-Bibliothek ist, dass derselbe Quellcode für Linux,
+ Windows und Mac OS verwendet werden kann.
+ Außerdem ist auch eine Portierung für Android, iOS, Blackberry und WindowsPhone
+ mit relativ geringen Aufwand möglich.
+ Die Bibliothek ist in einer minimal eingeschränkten quelloffenen Version
+ verfügbar, welche für die meisten Anwendungen ausreicht.
+ Für das (G)UI-Design und die Programmierung wurde die QtCreator-IDE genutzt.
+\begin_inset Newline newline
+\end_inset
+
+Die GUI der Steuersoftware (vgl.
+ 5.14) ist im Wesentlichen selbsterklärend, weswegen ich nur kurz auf sie
+ eingehen werde.
+ Das Hauptfenster hat 4 Tabs: 
+\begin_inset Quotes gld
+\end_inset
+
+Terminal/Connection
+\begin_inset Quotes grd
+\end_inset
+
+, 
+\begin_inset Quotes gld
+\end_inset
+
+Basic Control
+\begin_inset Quotes grd
+\end_inset
+
+, 
+\begin_inset Quotes gld
+\end_inset
+
+Simple Geometry
+\begin_inset Quotes grd
+\end_inset
+
+ und 
+\begin_inset Quotes gld
+\end_inset
+
+Functions
+\begin_inset Quotes grd
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+Im ersten Tab wird sowohl der Port angezeit an welchem der Plotter angeschlossen
+ als auch die Baudrate, mit der die Verbindung erfolgt.
+ In diesem Tab kann man außerdem Befehle senden und Rückgaben einsehen.
+\begin_inset Newline newline
+\end_inset
+
+Der 
+\begin_inset Quotes gld
+\end_inset
+
+Basic Control
+\begin_inset Quotes grd
+\end_inset
+
+-Tab ermöglicht die einfache Steuerung des Plotters.
+ Hier können beispielsweise die Achsen kalibriert und die Motoren an- oder
+ abgeschaltet werden.
+ Außerdem befinden sich im 
+\begin_inset Quotes gld
+\end_inset
+
+move
+\begin_inset Quotes grd
+\end_inset
+
+-Bereich Steuerelemente für das Bewegen der Achsen - beispielsweise dient
+ der 
+\begin_inset Quotes gld
+\end_inset
+
+Z↑
+\begin_inset Quotes grd
+\end_inset
+
+-Button, zum Heben der Z-Achse bzw.
+ des Stiftes.
+\begin_inset Newline newline
+\end_inset
+
+Um geometrische Primitiven einfach zu zeichnen, können im 
+\begin_inset Quotes gld
+\end_inset
+
+Simple Geometry
+\begin_inset Quotes grd
+\end_inset
+
+-Tab Linien (
+\begin_inset Quotes gld
+\end_inset
+
+Line
+\begin_inset Quotes grd
+\end_inset
+
+), Dreiecke (
+\begin_inset Quotes gld
+\end_inset
+
+Triangle
+\begin_inset Quotes grd
+\end_inset
+
+), Quadrate (
+\begin_inset Quotes gld
+\end_inset
+
+Square
+\begin_inset Quotes grd
+\end_inset
+
+), Rechtecke (
+\begin_inset Quotes gld
+\end_inset
+
+Rectangle
+\begin_inset Quotes grd
+\end_inset
+
+) und Kreise (
+\begin_inset Quotes gld
+\end_inset
+
+Circle
+\begin_inset Quotes grd
+\end_inset
+
+) geplottert werden.
+ Neben dieser Auswahl gibt es beim Rechteck noch einen 2.
+ Definitionsmodus, bei dem 2 Punkte definiert werden, wobei der erste Punkt
+ der untere Linke und der zweite Punkt der obere Rechte ist.
+ In der rechten Hälfte befindet sich ein Vorschaufenster, welches jeweils
+ ein Objekt anzeigen kann, das dann mit dem 
+\begin_inset Quotes gld
+\end_inset
+
+Plot
+\begin_inset Quotes grd
+\end_inset
+
+-Button vom Plotter geplottert werden kann.
+\begin_inset Newline newline
+\end_inset
+
+Der Letzte Tab dient zum Darstellen von Funktionen.
+ Die Vorschau erfolgt dynamisch mit der Eingabe der Parameter.
+ Zum Zeichnen der Funktion dient der 
+\begin_inset Quotes gld
+\end_inset
+
+Plot
+\begin_inset Quotes grd
+\end_inset
+
+-Button, welcher ein Fenster öffnet.
+ In diesem Fenster kann die Position des Ursprungs der Funktion auf dem
+ Blatt eingegeben werden, außerdem gibt es verschiedene Optionen für das
+ Koordinatensystem wie beispielsweise die Option, die Pfeile abzuschalten.
+ Nach dem bestätigen mit 
+\begin_inset Quotes gld
+\end_inset
+
+OK
+\begin_inset Quotes grd
+\end_inset
+
+ wird der G-CODE erzeugt und im ersten Tab angezeigt, aus welchem er dann
+ kopiert und in eine Datei eingefügt werden kann, um diese dann mit einer
+ 3D-Druck Software zu öffnen.
+\end_layout
+
+\begin_layout Section
+Weitere Einsatzmöglichkeiten meines und anderer Plotter
+\end_layout
+
+\begin_layout Subsection
+Einsatzmöglichkeiten meiner Plotter
+\end_layout
+
+\begin_layout Subsubsection
+Einsatzmöglichkeiten des ersten Plotters
+\end_layout
+
+\begin_layout Standard
+Die erste und offensichtlichste Einsatzmöglichkeit ist das Zeichnen von
+ geometrischen Figuren und Funktionen.
+ Dies ist selbstverständlich ohne jegliche Modifikation möglich.
+ Man könnte selbige auch ausschneiden indem man statt dem Stift ein Messer
+ oder einen Schneidlaser an der Stifthalterung befestigt und so einen Schneidplo
+tter baut.
+ Die Methode mit dem Schneidlaser ist hierbei weniger zu empfehlen, da Laser
+ (dieser Leistungsklasse) Sicherheitsvorkehrungen wie beispielsweise Schutzbrill
+en erfordern.
+\begin_inset Newline newline
+\end_inset
+
+Außerdem ist es möglich Muster zu zeichnen, welche auf Linien basieren,
+ dies erfordert jedoch entweder geringfügige Änderungen an der Software
+ oder aufwändige Eingaben.
+\begin_inset Newline newline
+\end_inset
+
+Die offen sichtbare Mechanik eines Plotters (und auch eines 3D-Drucker)
+ ist als Anschauungsmaterial für technisches Verständnis vorteilhaft.
+\end_layout
+
+\begin_layout Subsubsection
+Einsatzmöglichkeiten des zweiten Plotters
+\end_layout
+
+\begin_layout Standard
+Dank der G-CODE-Interaktion und sehr zuverlässigen Funktionfähigkeit sind
+ mit dem zweiten Plotter und zusätzlicher Software sehr viele weitere Einsatzmög
+lichkeiten denkbar.
+ So könnte man Logos, Symbole oder sogar Bilder, für welche der G-CODE mit
+ der freien Software Inkscape generiert werden kann Zeichen (z.B.
+ mit einem wasserfesten Stift auf den Akkudecke eines Handys).
+ Mithilfe von Inkscape könnte man außerdem den G-CODE für die Leiterbahnen
+ einer Platine erzeugen, welche geätzt werden soll, und diese dann mit einem
+ Permanentstift auf eine leere Platine Zeichnen und diese dann ätzen.
+\begin_inset Newline newline
+\end_inset
+
+Der einfache Umbau des 3D-Druckers zum Plotter zeigt, dass 3D-Drucker auf
+ den Grundlagen von Plottern aufbauen.
+\begin_inset Newline newline
+\end_inset
+
+Durch weitere Modifikationen kann man eine Fräse bauen.
+ Auch hier zeigt sich wieder, dass viele moderne Maschinen (besonders CNC-Maschi
+nen) auf den Grundlagen der Plotter aufbauen.
+\end_layout
+
+\begin_layout Subsection
+Einsatzmöglichkeiten von Plottern (allgemein)
+\end_layout
+
+\begin_layout Standard
+Schneidplotter sind nach wie vor aktuelle Maschinen, sie werden beispielsweise
+ bei der Herstellung von Klebefolien genutzt.
+ [18] Zeichenplotter wurden nach und nach durch Laser und Tintenstrahldrucker
+ ersetzt.
+ Wie bereits im vorherigen Abschnitt erwähnt, bilden Plotter die Grundlage
+ für viele Moderne Maschinen wie beispielsweise Fräsen und 3D-Drucker.
+ Auch Tintenstrahldrucker basieren auf den Grundlagen von Plottern, insbesondere
+ Rollenplottern, da bei diesen auch das Blatt an einem Schlitten mit der
+ Zeichen- bzw.
+ Druckvorrichtung vorbei bewegt wird.
+\begin_inset Newline newline
+\end_inset
+
+Außerdem können Plotter durch Modifikation zum Beispiel für Kunstprojekte
+\series bold
+ 
+\series default
+verwendet werden.
+ [18] Im weitesten Sinne ließen sich auch Brückenkräne als eine Form von
+ Plotter oder als mit dem Plotter 
+\begin_inset Quotes gld
+\end_inset
+
+verwandt
+\begin_inset Quotes grd
+\end_inset
+
+, aber auf jeden Fall mit 
+\begin_inset Quotes gld
+\end_inset
+
+plotterähnlich
+\begin_inset Quotes grd
+\end_inset
+
+ bezeichnen, insofern diese von einem Computer gesteuert werden.
+ 
+\end_layout
+
+\begin_layout Section
+Anhang
+\end_layout
+
+\begin_layout Subsection
+Bilder
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename pics/H-Brücke.jpeg
+	lyxscale 15
+	scale 10
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.1.
+ H-Brücke
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/DSC05114.JPG
+	lyxscale 15
+	scale 15
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.2 Y-Schrittmotor
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/DSC05116.JPG
+	lyxscale 15
+	scale 15
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.3 X-Schrittmotor mit Getriebe
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/DSC05113.JPG
+	lyxscale 15
+	scale 15
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.4 IR-Gabellichtschranke der X-Achse
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/Schaltplan.png
+	lyxscale 75
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.5 Schaltplan des ersten Plotters
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/Plotter.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abbildung 5.6 Schematischer Aufbau der Schaltung
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/DSC05109.JPG
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.
+ 7 fertig aufgebautes Steuerungsmodul (auf Mikrocontroller aufgesteckt)
+ mit Schrittmotortreibern (rote Platinen)
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/PlotterV2.png
+	lyxscale 30
+	scale 15
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.8 Erster Plotter in der Testphase
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/DSC05107.JPG
+	lyxscale 20
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.9 Erster Plotter im aktuellen Status (3.04.2016)
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/DSC05120.JPG
+	lyxscale 15
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.10 Vergleich von Extruder und Stifthalterung mit Stift (Fotomontage)
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/DSC05117.JPG
+	lyxscale 20
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.11 Detailaufnahme des X-Schlittens mit Servomotor, Gewicht und Stift in
+ Stifthalterung
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/DSC05118.JPG
+	lyxscale 15
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.12 zweiter Plotter
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/prusai3.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.13 zweiter Plotter (beschriftet) [aus 12]
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename pics/Screenshot.png
+	lyxscale 70
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Abb.
+ 5.14 Screenshot des 
+\begin_inset Quotes gld
+\end_inset
+
+Funtions
+\begin_inset Quotes grd
+\end_inset
+
+-Tabs der PlotterController-Software
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Quellenverzeichnis
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-2"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Plotter.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Plotter"
+
+\end_inset
+
+ zugegriffen: am 2.04.2016 15:52
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-3"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Vektorgrafik.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Vektorgrafik"
+
+\end_inset
+
+ zugegriffen: 2.04.2016 16:54
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-4"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Rastergrafik.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Rastergrafik"
+
+\end_inset
+
+ zugegriffen: 2.04.2016 16:57
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-5"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Schrittmotor.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Schrittmotor"
+
+\end_inset
+
+ zugegriffen: 2.04.2016 17:46
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-6"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Vierquadrantensteller in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Vierquadrantensteller"
+
+\end_inset
+
+ zugegriffen: 2.04.2016 19:25
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-7"
+
+\end_inset
+
+(ST Microelectronics) Unbekannt.
+ L298 in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://www.sparkfun.com/datasheets/Robotics/L298_H_Bridge.pdf"
+
+\end_inset
+
+ zugegriffen: 2.04.2016 19:13
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-10"
+
+\end_inset
+
+(PBC LINEAR) Unbekannt.
+ Stepper Motor NEMA 17.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.pbclinear.com/Download/DataSheet/Stepper-Motor-Support-Document.pdf"
+
+\end_inset
+
+ zugegriffen: 2.04.2016 19:23
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-11"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ StepStick.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://reprap.org/wiki/StepStick"
+
+\end_inset
+
+ zugegriffen: 2.04.2016 19:44
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-12"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ RepRap.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/RepRap"
+
+\end_inset
+
+ zugegriffen: 2.04.2016 19:49
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-13"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Arduino (Plattform) in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Arduino_%28Plattform%29"
+
+\end_inset
+
+ zugegriffen: 2.04.2016 19:58
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-14"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Mikrocontroller.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Mikrocontroller"
+
+\end_inset
+
+ zugegriffen: 2.04.2016 20:16
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-27"
+
+\end_inset
+
+(Prusa Research s.r.o.) Unbekannt.
+ 3D PRINTING HANDBOOK in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://prusa3d.com/downloads/manual/prusa3d_manual_175_en.pdf"
+
+\end_inset
+
+ zugegriffen: 3.04.2016 16:32
+\end_layout
+
+\begin_layout Bibliography
+\labelwidthstring 00.00.0000
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-15"
+
+\end_inset
+
+(Github) mehrere Verfasser.
+ MarlinFirmware/Marlin in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/MarlinFirmware/Marlin/blob/RC/Marlin/Marlin_main.cpp"
+
+\end_inset
+
+ Abgerufen am 3.04.2016 18:04
+\end_layout
+
+\begin_layout Bibliography
+\labelwidthstring 00.00.0000
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-16"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Drehmatrix.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Drehmatrix"
+
+\end_inset
+
+ Abgerufen am 3.04.2016 18:11
+\end_layout
+
+\begin_layout Bibliography
+\labelwidthstring 00.00.0000
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-17"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Bresenham-Algorithmus in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Bresenham-Algorithmus"
+
+\end_inset
+
+ Abgerufen am 3.04.2016 19:03
+\end_layout
+
+\begin_layout Bibliography
+\labelwidthstring 00.00.0000
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-18"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Geradengleichung.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Geradengleichung"
+
+\end_inset
+
+ zugegriffen: 3.04.2016 19:08
+\end_layout
+
+\begin_layout Bibliography
+\labelwidthstring 00.00.0000
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-20"
+
+\end_inset
+
+Daniel Iglesia.
+ The Draftmasters - I.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://vimeo.com/4611451"
+
+\end_inset
+
+.
+ zugegriffen: 3.04.2016 22:30 
+\end_layout
+
+\begin_layout Bibliography
+\labelwidthstring 00.00.0000
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-22"
+
+\end_inset
+
+(myfolie) Unbekannt.
+ Was sind Klebeschriften.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://www.myfolie.com/was-sind-klebeschriften"
+
+\end_inset
+
+ zugegriffen: 3.04.2016 23:07
+\end_layout
+
+\begin_layout Bibliography
+\labelwidthstring 00.00.0000
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-25"
+
+\end_inset
+
+(Wikipedia) mehrere Verfasser.
+ Computer Numerized Control.
+ in: 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://de.wikipedia.org/wiki/Computerized_Numerical_Control#DIN.2FISO-Programmierung_bzw._G-Code"
+
+\end_inset
+
+ zugegriffen: 3.04.2016 23:54
+\end_layout
+
+\end_body
+\end_document
